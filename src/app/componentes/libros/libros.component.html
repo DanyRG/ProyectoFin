@@ -1,0 +1,142 @@
+<h1 class="text-white mt-5">Agregar Productos</h1>
+<div class="row justify-content-around">
+  <form (ngSubmit)="registrarPrd()" class="col-6 m-3">
+    <div class="form-group">
+      <label for="" class="text-white">Nombre</label>
+      <input type="Text" class="form-control" name="nombre" [(ngModel)]="producto.nombre" #nombre="ngModel">
+    </div>
+    <div class="form-group">
+      <label for="" class="text-white">Precio Unitario</label>
+      <input type="number" class="form-control" name="precio" [(ngModel)]="producto.precioU" #precio="ngModel">
+    </div>
+    <div class="form-group">
+      <label for="" class="text-white">Categoría</label>
+      <div class="form-group">
+        <label for="" class="text-muted"><small> Elige una Categoría</small></label>
+        <select class="form-control" name="cat" [(ngModel)]="producto.categoria" #cat="ngModel">
+          <option *ngFor="let item of category" [ngValue]="item">{{item.descripcion}}</option>
+        </select>
+      </div>
+      <!-- <input type="Text" class="form-control" name="cat" [(ngModel)]="producto.categoria" #cat="ngModel"> -->
+    </div>
+    <div class="form-group">
+      <label for="" class="text-white">Usuario</label>
+      <div class="form-group">
+        <label for="" class="text-muted"><small> Elige un Usuario</small></label>
+        <select class="form-control" name="usuario" [(ngModel)]="producto.usuario" #usuario="ngModel">
+          <option *ngFor="let item of users" [ngValue]="item">{{item.nombre}}</option>
+        </select>
+      </div>
+      <!-- <input type="Text" class="form-control" name="usuario" [(ngModel)]="producto.usuario" #usuario="ngModel"> -->
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">+ Agregar</button>
+  </form>
+</div>
+
+<div class="mt-5 rounded p-4">
+  <table class="table rounded">
+      <thead class="thead-light text-dark">
+        <tr>
+          <th scope="col">Producto</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Usuario</th>
+          <th scope="col">Editar</th>
+        </tr>
+      </thead>
+      <tbody class="bg-dark" *ngFor="let prd of product">
+        <tr>
+          <td class="text-light">{{prd.nombre}}</td>
+          <td class="text-light">{{prd.precioU}}</td>
+          <td class="text-light">{{prd.categoria?prd.categoria.descripcion:'ELIMINADA'}}</td>
+          <td class="text-light">{{prd.usuario?prd.usuario.nombre:'ELIMINADO'}}</td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+
+              <button type="button" class="btn btn-primary" (click)="idAct(prd._id)"
+              data-toggle="modal" 
+              data-target="#EditarPRD">
+                Edit
+              </button>
+              <!-- Modal para form para actualizar Categoria -->
+              <div class="modal fade" id="EditarPRD" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">Ingrese nuevos datos para el Producto</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form (ngSubmit)="registrarPrd()" class=" m-3">
+                        <div class="form-group">
+                          <label for="" class="">Nombre</label>
+                          <input type="Text" class="form-control" name="nombre" [(ngModel)]="producto.nombre" #nombre="ngModel">
+                        </div>
+                        <div class="form-group">
+                          <label for="" class="">Precio Unitario</label>
+                          <input type="number" class="form-control" name="precio" [(ngModel)]="producto.precioU" #precio="ngModel">
+                        </div>
+                        <div class="form-group">
+                          <label for="" class="">Categoría</label>
+                          <div class="form-group">
+                            <label for="" class=""><small> Elige una Categoría</small></label>
+                            <select class="form-control" name="cat" [(ngModel)]="producto.categoria" #cat="ngModel">
+                              <option *ngFor="let item of category" [ngValue]="item">{{item.descripcion}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="" class="">Usuario</label>
+                          <div class="form-group">
+                            <label for="" class=""><small> Elige un Usuario</small></label>
+                            <select class="form-control" name="usuario" [(ngModel)]="producto.usuario" #usuario="ngModel">
+                              <option *ngFor="let item of users" [ngValue]="item">{{item.nombre}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" (click)="actualizarPrd()">Guardar Cambios</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-danger" (click)="idAct(prd._id)"
+              data-toggle="modal" 
+              data-target="#ConfirmarElim">
+                Delete
+              </button>
+              <!-- Modal para confirmar y eliminar Productos -->
+              <div class="modal fade" id="ConfirmarElim" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ConfirmarElim" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">¿Seguro que quieres eliminar este Producto?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Eliminaras el producto seleccionado al Confirmar
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-primary" (click)="eliminarPrd()">Confirmar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+

@@ -1,0 +1,109 @@
+<p class="text-light display-3 m-3">Insertar cafetoría:</p>
+
+<div class="row justify-content-around">
+    <div class="col-4 mt-5 bg-dark rounded">
+        <form class="m-4" (ngSubmit)="registrarCatg()">
+            <div class="form-group">
+              <label for="" class="text-white">Descripción</label>
+              <input type="text" class="form-control form-control-sm" name="desc" [(ngModel)]="categoria.descripcion" #desc="ngModel">
+              <small id="" class="form-text text-muted">Ingresa el nombre de la nueva categoría</small>
+            </div>
+            <div class="form-group">
+              <label for="" class="text-white">Usuario</label>
+              <select class="form-control" name="usr" [(ngModel)]="categoria.usuario" #usr="ngModel">
+                <option *ngFor="let item of users" [ngValue]="item">{{item.nombre}}</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4"> + Agregar</button>
+          </form>
+    </div>
+    <div class="col-6 mt-5 rounded">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Editar</th>
+              </tr>
+            </thead>
+            <tbody class="bg-light" *ngFor="let cat of category">
+              <tr>
+                <td>{{cat._id}}</td>
+                <td>{{cat.descripcion}}</td>
+                <td>{{cat.usuario?cat.usuario.nombre:'ELIMINADO'}}</td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+
+                    <button type="button" class="btn btn-primary" (click)="idAct(cat._id)"
+                      data-toggle="modal" 
+                      data-target="#TraerIDModal">
+                      Edit
+                    </button>
+                    <!-- Modal para form para actualizar Categoria -->
+                    <div class="modal fade" id="TraerIDModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Ingrese nuevos datos para la Categoría</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form class="m-4">
+                              <div class="form-group">
+                                <label for="" class="">Descripción</label>
+                                <input type="text" class="form-control form-control-sm" name="desc" [(ngModel)]="categoria.descripcion" #desc="ngModel">
+                                <small id="" class="form-text text-muted">Ingresa el nombre de la nueva categoría</small>
+                              </div>
+                              <div class="form-group">
+                                <label for="" class="">Usuario</label>
+                                <select class="form-control" name="usr" [(ngModel)]="categoria.usuario" #usr="ngModel">
+                                  <option *ngFor="let item of users" [ngValue]="item">{{item.nombre}}</option>
+                                </select>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" (click)="actualizarCat()">Guardar Cambios</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <button type="button" class="btn btn-danger"  (click)="idAct(cat._id)"
+                      data-toggle="modal" 
+                      data-target="#ConfirmarElim">
+                      Delete
+                    </button>
+                    <!-- Modal para confirmar y eliminar Categoria -->
+                    <div class="modal fade" id="ConfirmarElim" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ConfirmarElim" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">¿Seguro que quieres eliminar esta Categoría?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Eliminaras la categoría seleccionada al Confirmar
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" (click)="eliminarCat()">Confirmar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>

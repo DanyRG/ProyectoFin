@@ -1,0 +1,165 @@
+<a class="display-4 text-light p-1 pl-4">Insertar usuarios</a>
+<div class="row justify-content-around">
+    <div class="col-4 mt-5 bg-dark rounded">
+      <form class="m-4">
+        <div class="form-group">
+          <label for="" class="text-white">Nombre</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="nombre" [(ngModel)]="usuarioss.nombre" #nombre="ngModel"
+          />
+          <small id="" class="form-text text-muted"
+            >Ingresa un nombre de usuario.</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="" class="text-white">Apellido</label>
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            name="apellido" [(ngModel)]="usuarioss.apellido" #apellido="ngModel"
+          />
+          <small id="" class="form-text text-muted">Ingresa un apellido.</small>
+        </div>
+        <div class="form-group">
+          <label for="" class="text-white">Email</label>
+          <input
+            type="email"
+            class="form-control form-control-sm"
+            name="correo" [(ngModel)]="usuarioss.email" #correo="ngModel"
+          />
+          <small id="" class="form-text text-muted"
+            >Ingresa un correo valido.</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="" class="text-white">Password</label>
+          <input
+            type="password"
+            class="form-control form-control-sm"
+            name="pass" [(ngModel)]="usuarioss.password" #pass="ngModel"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary mt-4" (click)=registrarUsr()>+ Agregar</button>
+      </form>
+    </div>
+  
+    <div class="col-7 mt-5 bg-light rounded">
+          <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Correo</th>
+                  <th scope="col">Editar</th>
+                </tr>
+              </thead>
+              <tbody class="" *ngFor=" let usr of users">
+                <tr >
+                  <td>{{usr._id}}</td>
+                  <td>{{usr.nombre}}</td>
+                  <td>{{usr.apellido}}</td> 
+                  <td>{{usr.email}}</td>
+                  <td>
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-primary" (click)="idAct(usr._id)"
+                      data-toggle="modal" 
+                      data-target="#staticBackdrop">
+                        Edit
+                      </button>
+                      <!-- Modal para form para actualizar Usuario -->
+                      <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="staticBackdropLabel">Ingrese nuevos datos de Usuario</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <form class="m-4">
+                                <div class="form-group">
+                                  <label for="" class="">Nombre</label>
+                                  <input
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                    name="nombre" [(ngModel)]="usuarioss.nombre" #nombre="ngModel"
+                                  />
+                                  <small id="" class="form-text text-muted"
+                                    >Ingresa un nombre de usuario.</small
+                                  >
+                                </div>
+                                <div class="form-group">
+                                  <label for="" class="">Apellido</label>
+                                  <input
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                    name="apellido" [(ngModel)]="usuarioss.apellido" #apellido="ngModel"
+                                  />
+                                  <small id="" class="form-text text-muted">Ingresa un apellido.</small>
+                                </div>
+                                <div class="form-group">
+                                  <label for="" class="">Email</label>
+                                  <input
+                                    type="email"
+                                    class="form-control form-control-sm"
+                                    name="correo" [(ngModel)]="usuarioss.email" #correo="ngModel"
+                                  />
+                                  <small id="" class="form-text text-muted"
+                                    >Ingresa un correo valido.</small
+                                  >
+                                </div>
+                              </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary" (click)="actualizarUsr()">Guardar Cambios</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <button type="button" class="btn btn-danger" (click)="idAct(usr._id)"
+                      data-toggle="modal" 
+                      data-target="#ConfirmarElim">
+                        Delete
+                      </button>
+                      <!-- Modal para form para actualizar Usuario -->
+                      <div class="modal fade" id="ConfirmarElim" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="ConfirmarElim" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="staticBackdropLabel">¿Seguro que quieres eliminar este Usuario?</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              Eliminaras el usuario seleccionado al Confirmar
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary" (click)="eliminarUsr()">Confirmar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+  </div>
+  
+
+
+  <!-- (click)="actualizarUsr()" 
+  
+  (click)="idAct(usr._id)"-->

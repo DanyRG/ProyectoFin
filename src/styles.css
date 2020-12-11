@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+/* Cambiar flecha de tooltip */
+body::-webkit-scrollbar{
+    width: 15px;
+    height: 15px;
+}
+body::-webkit-scrollbar-thumb{
+    background-color: rgb(49, 49, 49);
+    border-radius: 10px;
+    border-right:solid 2px #18191a;
+    border-left:solid 2px #18191a;
+}
